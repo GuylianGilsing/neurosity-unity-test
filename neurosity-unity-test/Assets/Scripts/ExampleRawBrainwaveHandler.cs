@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Notion.Unity;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class ExampleRawBrainwaveHandler : MonoBehaviour
 
     private void HandleRawBrainWaves(Epoch epoch)
     {
-        Debug.Log($"{epoch.Label}");
-        Debug.Log($"{epoch.Data.ToString()}");
+        RawBrainWaves brainWaves = BrainwaveDecoder.decodeFromEpoch(epoch);
+        Debug.Log(JsonConvert.SerializeObject(brainWaves));
     }
 }
