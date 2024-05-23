@@ -58,4 +58,17 @@ public class BrainwaveDecoder
 
         return rawBrainWaves;
     }
+
+    public static BrainWaveBands decodeFromPowerByBand(PowerByBand powerByBand)
+    {
+        BrainWaveBands bands = new(
+            alpha: powerByBand.Data.Alpha,
+            beta: powerByBand.Data.Beta,
+            delta: powerByBand.Data.Delta,
+            gamma: powerByBand.Data.Gamma,
+            theta: powerByBand.Data.Theta
+        );
+
+        return bands;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CrownHandler : MonoBehaviour
 {
     public static event Action<Epoch> OnRawBrainwavesReceived;
+    public static event Action<PowerByBand> OnBrainwaveBandsReceived;
 
     [SerializeField] private Device device;
 
@@ -51,11 +52,18 @@ public class CrownHandler : MonoBehaviour
             return;
         }
 
-        this.notion.Subscribe(new BrainwavesRawHandler
+        this.notion.Subscribe(new BrainwavesPowerByBandHandler
         {
-            OnUpdated = (Epoch epoch) => {
-                OnRawBrainwavesReceived.Invoke(epoch);
+            OnUpdated = (PowerByBand data) => {
+                OnBrainwaveBandsReceived.Invoke(data);
             },
         });
+
+        // this.notion.Subscribe(new BrainwavesRawHandler
+        // {
+        //     OnUpdated = (Epoch epoch) => {
+        //         OnRawBrainwavesReceived.Invoke(epoch);
+        //     },
+        // });
     }
 }
