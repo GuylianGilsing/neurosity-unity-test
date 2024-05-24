@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Text;
-using UnityEngine;
 
 namespace Notion.Unity
 {

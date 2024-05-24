@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+using System;
 using Notion.Unity;
 using UnityEngine;
 
 public class BrainWaveBandsHandler : MonoBehaviour
 {
+    public static event Action<BrainWaveBands> OnBrainwaveBandsReceived;
+
     private void OnEnable()
     {
         CrownHandler.OnBrainwaveBandsReceived += this.HandleRawBrainWaves;
@@ -19,6 +19,7 @@ public class BrainWaveBandsHandler : MonoBehaviour
     private void HandleRawBrainWaves(PowerByBand powerByBand)
     {
         BrainWaveBands bands = BrainwaveDecoder.decodeFromPowerByBand(powerByBand);
-        Debug.Log(JsonConvert.SerializeObject(bands));
+
+        OnBrainwaveBandsReceived.Invoke(bands);
     }
 }
