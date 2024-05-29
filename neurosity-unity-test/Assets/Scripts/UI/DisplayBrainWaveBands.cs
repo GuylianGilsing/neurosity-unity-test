@@ -12,6 +12,12 @@ public class DisplayBrainWaveBands : MonoBehaviour
     [SerializeField] private Image gammaChannel;
     [SerializeField] private Image thetaChannel;
 
+    private float[] alphaWaves = new float[10];
+    private float[] betaWaves = new float[10];
+    private float[] deltaWaves = new float[10];
+    private float[] gammaWaves = new float[10];
+    private float[] thetaWaves = new float[10];
+
     private void OnEnable()
     {
         BrainWaveBandsHandler.OnBrainwaveBandsReceived += this.HandleUIUpdates;
@@ -62,14 +68,22 @@ public class DisplayBrainWaveBands : MonoBehaviour
 
     private void HandleUIUpdates(BrainWaveBands bands)
     {
-        this.alphaChannel.color = this.GetColorFromBandRange(bands.alpha.Average());
-        this.betaChannel.color = this.GetColorFromBandRange(bands.beta.Average());
-        this.deltaChannel.color = this.GetColorFromBandRange(bands.delta.Average());
-        this.gammaChannel.color = this.GetColorFromBandRange(bands.gamma.Average());
-        this.thetaChannel.color = this.GetColorFromBandRange(bands.theta.Average());
+        float alpha = (float)bands.alpha.Average();
+        float beta = (float)bands.beta.Average();
+        float delta = (float)bands.delta.Average();
+        float gamma = (float)bands.gamma.Average();
+        float theta = (float)bands.theta.Average();
+
+        Debug.Log($"A: ${alpha} B: {beta} D: {delta} G: {gamma} T: {theta}");
+
+        this.alphaChannel.color = this.GetColorFromBandRange(alpha);
+        this.betaChannel.color = this.GetColorFromBandRange(beta);
+        this.deltaChannel.color = this.GetColorFromBandRange(delta);
+        this.gammaChannel.color = this.GetColorFromBandRange(gamma);
+        this.thetaChannel.color = this.GetColorFromBandRange(theta);
     }
 
-    private Color GetColorFromBandRange(decimal hertz)
+    private Color GetColorFromBandRange(float hertz)
     {
         Color[] colors = new Color[6] {
             Color.red,
@@ -89,8 +103,8 @@ public class DisplayBrainWaveBands : MonoBehaviour
         // Check between which range the current hertz belongs
         for (int i = 0; i < colors.Length; i += 1)
         {
-            decimal rangeMin = this.hertRange / colors.Length * i;
-            decimal rangeMax = this.hertRange / colors.Length * (i + 1);
+            float rangeMin = this.hertRange / colors.Length * i;
+            float rangeMax = this.hertRange / colors.Length * (i + 1);
 
             if (hertz >= rangeMin && hertz < rangeMax)
             {
