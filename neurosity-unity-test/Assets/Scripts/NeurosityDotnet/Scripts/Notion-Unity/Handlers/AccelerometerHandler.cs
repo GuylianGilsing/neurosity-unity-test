@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System.Text;
-using UnityEngine;
+using System;
 
 namespace Notion.Unity
 {
@@ -9,24 +8,13 @@ namespace Notion.Unity
         public Metrics Metric => Metrics.Accelerometer;
         public string Label => string.Empty;
 
-        private readonly StringBuilder _builder;
-
-        public AccelerometerHandler()
-        {
-            _builder = new StringBuilder();
-        }
+        public Action<Accelerometer> OnUpdated { get; set; }
 
         public void Handle(string metricData)
         {
             Accelerometer accelerometer = JsonConvert.DeserializeObject<Accelerometer>(metricData);
 
-            _builder.AppendLine("Handling Accelerometer")
-                .Append("X: ").AppendLine(accelerometer.X.ToString())
-                .Append("Y: ").AppendLine(accelerometer.Y.ToString())
-                .Append("Z: ").AppendLine(accelerometer.Z.ToString());
-
-            Debug.Log(_builder.ToString());
-            _builder.Clear();
+            OnUpdated.Invoke(accelerometer);
         }
     }
 }

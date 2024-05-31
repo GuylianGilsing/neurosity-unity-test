@@ -61,12 +61,18 @@ public class BrainwaveDecoder
 
     public static BrainWaveBands decodeFromPowerByBand(PowerByBand powerByBand)
     {
+        float alpha = (float)powerByBand.Data.Alpha.Average();
+        float beta = (float)powerByBand.Data.Beta.Average();
+        float delta = (float)powerByBand.Data.Delta.Average();
+        float gamma = (float)powerByBand.Data.Gamma.Average();
+        float theta = (float)powerByBand.Data.Theta.Average();
+
         BrainWaveBands bands = new(
-            alpha: powerByBand.Data.Alpha,
-            beta: powerByBand.Data.Beta,
-            delta: powerByBand.Data.Delta,
-            gamma: powerByBand.Data.Gamma,
-            theta: powerByBand.Data.Theta
+            alpha: alpha,
+            beta: beta,
+            delta: delta,
+            gamma: gamma,
+            theta: theta
         );
 
         return bands;

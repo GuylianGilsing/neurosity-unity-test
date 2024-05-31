@@ -7,6 +7,7 @@ public class CrownHandler : MonoBehaviour
 {
     public static event Action<Epoch> OnRawBrainwavesReceived;
     public static event Action<PowerByBand> OnBrainwaveBandsReceived;
+    public static event Action<Accelerometer> OnBrainwaveAccelerometerReceived;
 
     [SerializeField] private Device device;
 
@@ -59,11 +60,11 @@ public class CrownHandler : MonoBehaviour
             },
         });
 
-        // this.notion.Subscribe(new BrainwavesRawHandler
-        // {
-        //     OnUpdated = (Epoch epoch) => {
-        //         OnRawBrainwavesReceived.Invoke(epoch);
-        //     },
-        // });
+        this.notion.Subscribe(new AccelerometerHandler
+        {
+            OnUpdated = (Accelerometer data) => {
+                OnBrainwaveAccelerometerReceived.Invoke(data);
+            },
+        });
     }
 }

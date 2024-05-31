@@ -12,12 +12,6 @@ public class DisplayBrainWaveBands : MonoBehaviour
     [SerializeField] private Image gammaChannel;
     [SerializeField] private Image thetaChannel;
 
-    private float[] alphaWaves = new float[10];
-    private float[] betaWaves = new float[10];
-    private float[] deltaWaves = new float[10];
-    private float[] gammaWaves = new float[10];
-    private float[] thetaWaves = new float[10];
-
     private void OnEnable()
     {
         BrainWaveBandsHandler.OnBrainwaveBandsReceived += this.HandleUIUpdates;
@@ -39,11 +33,11 @@ public class DisplayBrainWaveBands : MonoBehaviour
     //     if (this.counter >= 2.0f)
     //     {
     //         BrainWaveBands bands = new(
-    //             alpha: this.GetRandomBrainWaveBandRanges(),
-    //             beta: this.GetRandomBrainWaveBandRanges(),
-    //             delta: this.GetRandomBrainWaveBandRanges(),
-    //             gamma: this.GetRandomBrainWaveBandRanges(),
-    //             theta: this.GetRandomBrainWaveBandRanges()
+    //             alpha: this.GetRandomBrainWaveBandRanges().Average(),
+    //             beta: this.GetRandomBrainWaveBandRanges().Average(),
+    //             delta: this.GetRandomBrainWaveBandRanges().Average(),
+    //             gamma: this.GetRandomBrainWaveBandRanges().Average(),
+    //             theta: this.GetRandomBrainWaveBandRanges().Average()
     //         );
 
     //         this.counter = 0;
@@ -51,36 +45,30 @@ public class DisplayBrainWaveBands : MonoBehaviour
     //     }
     // }
 
-    private decimal[] GetRandomBrainWaveBandRanges()
+    private float[] GetRandomBrainWaveBandRanges()
     {
-        return new decimal[8] {
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
-            Convert.ToDecimal(UnityEngine.Random.Range(0f, 250f)),
+        return new float[8] {
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
+            UnityEngine.Random.Range(0f, 250f),
         };
     }
     #endregion
 
     private void HandleUIUpdates(BrainWaveBands bands)
     {
-        float alpha = (float)bands.alpha.Average();
-        float beta = (float)bands.beta.Average();
-        float delta = (float)bands.delta.Average();
-        float gamma = (float)bands.gamma.Average();
-        float theta = (float)bands.theta.Average();
+        Debug.Log($"A: {bands.alpha} B: {bands.beta} D: {bands.delta} G: {bands.gamma} T: {bands.theta}");
 
-        Debug.Log($"A: ${alpha} B: {beta} D: {delta} G: {gamma} T: {theta}");
-
-        this.alphaChannel.color = this.GetColorFromBandRange(alpha);
-        this.betaChannel.color = this.GetColorFromBandRange(beta);
-        this.deltaChannel.color = this.GetColorFromBandRange(delta);
-        this.gammaChannel.color = this.GetColorFromBandRange(gamma);
-        this.thetaChannel.color = this.GetColorFromBandRange(theta);
+        this.alphaChannel.color = this.GetColorFromBandRange(bands.alpha);
+        this.betaChannel.color = this.GetColorFromBandRange(bands.beta);
+        this.deltaChannel.color = this.GetColorFromBandRange(bands.delta);
+        this.gammaChannel.color = this.GetColorFromBandRange(bands.gamma);
+        this.thetaChannel.color = this.GetColorFromBandRange(bands.theta);
     }
 
     private Color GetColorFromBandRange(float hertz)

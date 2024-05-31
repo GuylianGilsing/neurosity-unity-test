@@ -1,26 +1,26 @@
 public class BrainWaveBands
 {
-    public decimal[] alpha { get; set;}
-    public decimal[] beta { get; set;}
-    public decimal[] delta { get; set;}
-    public decimal[] gamma { get; set;}
-    public decimal[] theta { get; set;}
+    public float alpha { get; set;}
+    public float beta { get; set;}
+    public float delta { get; set;}
+    public float gamma { get; set;}
+    public float theta { get; set;}
 
     public BrainWaveBands()
     {
-        this.alpha = new decimal[0];
-        this.beta = new decimal[0];
-        this.delta = new decimal[0];
-        this.gamma = new decimal[0];
-        this.theta = new decimal[0];
+        this.alpha = 0.0f;
+        this.beta = 0.0f;
+        this.delta = 0.0f;
+        this.gamma = 0.0f;
+        this.theta = 0.0f;
     }
 
     public BrainWaveBands(
-        decimal[] alpha,
-        decimal[] beta,
-        decimal[] delta,
-        decimal[] gamma,
-        decimal[] theta
+        float alpha,
+        float beta,
+        float delta,
+        float gamma,
+        float theta
     ) {
         this.alpha = alpha;
         this.beta = beta;
