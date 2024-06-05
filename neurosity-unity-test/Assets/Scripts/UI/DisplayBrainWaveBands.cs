@@ -69,7 +69,7 @@ public class DisplayBrainWaveBands : MonoBehaviour
         this.thetaChannel.color = this.GetColorFromBandRange(bands.theta.Average());
     }
 
-    private Color GetColorFromBandRange(decimal hertz)
+    public Color GetColorFromBandRange(decimal hertz)
     {
         Color[] colors = new Color[6] {
             Color.red,
