@@ -14,10 +14,10 @@ using UnityEditor;
 
 public class UnitySliders : MonoBehaviour
 {
-    [SerializeField] public Material planeMaterial;
-    [SerializeField] public Material cubeMaterial;
-    [SerializeField] public Material orbMaterial;
-    [SerializeField] public Material cylinderMaterial;
+    //[SerializeField] public Material planeMaterial;
+    //[SerializeField] public Material cubeMaterial;
+    //[SerializeField] public Material orbMaterial;
+    //[SerializeField] public Material cylinderMaterial;
     
     static private UnitySliders activeSliderScript;
     //Port name with which the SerialPort object will be created. Leave empty for auto detection.
