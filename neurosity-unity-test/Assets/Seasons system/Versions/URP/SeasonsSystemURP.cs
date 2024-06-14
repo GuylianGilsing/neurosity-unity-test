@@ -90,13 +90,17 @@ public class SeasonsSystemURP : MonoBehaviour
     private float dayTimer;
     private bool isGrassColorsSet;
     private bool isAllMaterialsRecolored;
+    UnitySliders unitySliders;
 
+    void Awake(){
+        unitySliders = this.GetComponent<UnitySliders>();
+    }
 
     void Start()
     {
         m_minutesOfDay = minutesOfDay * 60;
         dayTimer = m_minutesOfDay;
-
+        
         season = initialSeason;
         onNewSeasonActions();
         if (changeGrassColor || changeGrassWindSpeed) { detailPrototypes = terrain.terrainData.detailPrototypes; }
@@ -197,20 +201,35 @@ public class SeasonsSystemURP : MonoBehaviour
     private seasons nextSeason()
     {
         if (logToConsole) { Debug.Log("Season system: end of season " + season.ToString()); }
+        
+        float RedComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Red); 
+        float OrangeComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Orange);
+        float YellowComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Yellow);  
+        float GreenComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Green);  
+        float BlueComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Blue);
+        Debug.Log(RedComparison);
+        Debug.Log(OrangeComparison);
+        Debug.Log(YellowComparison);
+        Debug.Log(GreenComparison);
+        Debug.Log(BlueComparison);
+        Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison);
 
-        switch (season)
-        {
-            case seasons.spring:
-                return seasons.summer;
-            case seasons.summer:
-                return seasons.autumn;
-            case seasons.autumn:
-                return seasons.winter;
-            case seasons.winter:
-                return seasons.spring;
-        }
-
-        return seasons.none;
+        if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == RedComparison){
+            Debug.Log("Red was highest");
+            return seasons.summer;
+        } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == OrangeComparison){
+            Debug.Log("Orange was highest");
+            return seasons.autumn;
+        } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == YellowComparison){
+            Debug.Log("Yellow was highest");
+            return seasons.winter;
+        } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == GreenComparison){
+            Debug.Log("Green was highest");
+            return seasons.spring;
+        } else {
+            Debug.Log("Blue was highest");
+            return seasons.spring;
+        }        
     }
 
     private void onNewSeasonActions()
@@ -255,19 +274,31 @@ public class SeasonsSystemURP : MonoBehaviour
         switch (season)
         {
             case seasons.spring:
+                playParticleEffects(summerParticles, false);
+                autumnEffects(false);
                 winterEffects(false);
+
                 playParticleEffects(springParticles, true);
                 break;
             case seasons.summer:
                 playParticleEffects(springParticles, false);
+                autumnEffects(false);
+                winterEffects(false);
+
                 playParticleEffects(summerParticles, true);
                 break;
             case seasons.autumn:
+                playParticleEffects(springParticles, false);
                 playParticleEffects(summerParticles, false);
+                winterEffects(false);
+
                 playParticleEffects(autumnParticles, true);
                 break;
             case seasons.winter:
+                playParticleEffects(springParticles, false);
+                playParticleEffects(summerParticles, false);
                 autumnEffects(false);
+                
                 winterEffects(true);
                 break;
             default:
