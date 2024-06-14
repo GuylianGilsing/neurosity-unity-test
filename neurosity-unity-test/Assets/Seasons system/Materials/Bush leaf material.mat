@@ -130,7 +130,7 @@ Material:
     - Wind_direction: {r: 1, g: 1, b: 2, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.36452702, g: 0.6795212, b: 0.41482288, a: 1}
-    - _Color2: {r: 0.6039314, g: 0.69182456, b: 0.4758837, a: 0.9999997}
+    - _Color2: {r: 0.5975489, g: 0.65093726, b: 0.37152383, a: 0.9999999}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

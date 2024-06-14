@@ -207,27 +207,22 @@ public class SeasonsSystemURP : MonoBehaviour
         float YellowComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Yellow);  
         float GreenComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Green);  
         float BlueComparison = unitySliders.GetSliderValueRaw(UnitySliders.SliderColors.Blue);
-        Debug.Log(RedComparison);
-        Debug.Log(OrangeComparison);
-        Debug.Log(YellowComparison);
-        Debug.Log(GreenComparison);
-        Debug.Log(BlueComparison);
         Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison);
 
         if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == RedComparison){
-            Debug.Log("Red was highest");
+            Debug.Log("Red was highest, changing to summer");
             return seasons.summer;
         } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == OrangeComparison){
-            Debug.Log("Orange was highest");
+            Debug.Log("Orange was highest, changing to autumn");
             return seasons.autumn;
         } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == YellowComparison){
-            Debug.Log("Yellow was highest");
+            Debug.Log("Yellow was highest, changing to winter");
             return seasons.winter;
         } else if(Mathf.Max(RedComparison, OrangeComparison, YellowComparison, GreenComparison, BlueComparison) == GreenComparison){
-            Debug.Log("Green was highest");
+            Debug.Log("Green was highest, changing to spring");
             return seasons.spring;
         } else {
-            Debug.Log("Blue was highest");
+            Debug.Log("Blue was highest, changing to spring");
             return seasons.spring;
         }        
     }
@@ -298,7 +293,7 @@ public class SeasonsSystemURP : MonoBehaviour
                 playParticleEffects(springParticles, false);
                 playParticleEffects(summerParticles, false);
                 autumnEffects(false);
-                
+
                 winterEffects(true);
                 break;
             default:
@@ -365,19 +360,31 @@ public class SeasonsSystemURP : MonoBehaviour
         switch (season)
         {
             case seasons.spring:
+                isNewSeasonPostProcessingSet = setPostProcessing(false, summerPP);
+                isNewSeasonPostProcessingSet = setPostProcessing(false, autumnPP);
                 isNewSeasonPostProcessingSet = setPostProcessing(false, winterPP);
+
                 isNewSeasonPostProcessingSet = setPostProcessing(true, springPP);
                 break;
             case seasons.summer:
                 isNewSeasonPostProcessingSet = setPostProcessing(false, springPP);
+                isNewSeasonPostProcessingSet = setPostProcessing(false, autumnPP);
+                isNewSeasonPostProcessingSet = setPostProcessing(false, winterPP);
+
                 isNewSeasonPostProcessingSet = setPostProcessing(true, summerPP);
                 break;
             case seasons.autumn:
+                isNewSeasonPostProcessingSet = setPostProcessing(false, springPP);
                 isNewSeasonPostProcessingSet = setPostProcessing(false, summerPP);
+                isNewSeasonPostProcessingSet = setPostProcessing(false, winterPP);
+
                 isNewSeasonPostProcessingSet = setPostProcessing(true, autumnPP);
                 break;
             case seasons.winter:
+                isNewSeasonPostProcessingSet = setPostProcessing(false, springPP);
+                isNewSeasonPostProcessingSet = setPostProcessing(false, summerPP);
                 isNewSeasonPostProcessingSet = setPostProcessing(false, autumnPP);
+
                 isNewSeasonPostProcessingSet = setPostProcessing(true, winterPP);
                 break;
             default:
