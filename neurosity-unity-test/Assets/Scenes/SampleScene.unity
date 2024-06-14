@@ -883,6 +883,7 @@ GameObject:
   - component: {fileID: 553970350}
   - component: {fileID: 553970352}
   - component: {fileID: 553970351}
+  - component: {fileID: 553970353}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -963,6 +964,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7440e8f483b89f6608a91f293627976b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &553970353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553970347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd91da4044a0c024a98636799ae745d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connected: 0
+  Red: 0
+  Orange: 0
+  Yellow: 0
+  Green: 0
+  Blue: 0
 --- !u!1 &621288079
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,7 +2276,6 @@ MonoBehaviour:
   deltaChannel: {fileID: 1100326575}
   gammaChannel: {fileID: 1886802100}
   thetaChannel: {fileID: 621393196}
-  hertRange: 250
 --- !u!1 &1263242474
 GameObject:
   m_ObjectHideFlags: 0

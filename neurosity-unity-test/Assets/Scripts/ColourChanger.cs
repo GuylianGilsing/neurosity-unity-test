@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class ColourChanger : MonoBehaviour
 {
-    [SerializeField] Material planeMaterial;
-    [SerializeField] Material cubeMaterial;
-    [SerializeField] Material orbMaterial;
-    [SerializeField] Material cylinderMaterial;
+    [SerializeField] public Material planeMaterial;
+    [SerializeField] public Material cubeMaterial;
+    [SerializeField] public Material orbMaterial;
+    [SerializeField] public Material cylinderMaterial;
 
     [SerializeField] private Slider _alphaSlider;
     [SerializeField] private Slider _betaSlider;
@@ -26,9 +26,9 @@ public class ColourChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        planeMaterial.color = new Color(_gammaSlider.value, _gammaSlider.value, _gammaSlider.value);
-        cubeMaterial.color = new Color(_alphaSlider.value, _thetaSlider.value, 0);
-        orbMaterial.color = new Color(0, _betaSlider.value, _thetaSlider.value);
-        cylinderMaterial.color = new Color(_thetaSlider.value, 0, _deltaSlider.value);
+        //planeMaterial.color = new Color(_gammaSlider.value, _gammaSlider.value, _gammaSlider.value);
+        //cubeMaterial.color = new Color(_alphaSlider.value, _thetaSlider.value, 0);
+        //orbMaterial.color = new Color(0, _betaSlider.value, _thetaSlider.value);
+        //cylinderMaterial.color = new Color(_thetaSlider.value, 0, _deltaSlider.value);
     }
 }
