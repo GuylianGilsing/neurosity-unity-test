@@ -152,10 +152,10 @@ public class UnitySliders : MonoBehaviour
         }
 
 
-        planeMaterial.color = new Color(GetSliderValue01(SliderColors.Green), GetSliderValue01(SliderColors.Green), GetSliderValue01(SliderColors.Green));
-        cubeMaterial.color = new Color(GetSliderValue01(SliderColors.Red), GetSliderValue01(SliderColors.Blue), 0);
-        orbMaterial.color = new Color(0, GetSliderValue01(SliderColors.Orange), GetSliderValue01(SliderColors.Blue));
-        cylinderMaterial.color = new Color(GetSliderValue01(SliderColors.Blue), 0, GetSliderValue01(SliderColors.Yellow));
+        //planeMaterial.color = new Color(GetSliderValue01(SliderColors.Green), GetSliderValue01(SliderColors.Green), GetSliderValue01(SliderColors.Green));
+        //cubeMaterial.color = new Color(GetSliderValue01(SliderColors.Red), GetSliderValue01(SliderColors.Blue), 0);
+        //orbMaterial.color = new Color(0, GetSliderValue01(SliderColors.Orange), GetSliderValue01(SliderColors.Blue));
+        //cylinderMaterial.color = new Color(GetSliderValue01(SliderColors.Blue), 0, GetSliderValue01(SliderColors.Yellow));
     }
 
     public float GetSliderValue01(SliderColors color)
