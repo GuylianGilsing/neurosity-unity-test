@@ -6,9 +6,12 @@ using UnityEngine.Rendering;
 
 public class SeasonsSystemURP : MonoBehaviour
 {
+
+    private float[] times = new float[4];
+    private float time;
+
     public enum seasons
     {
-        none,
         spring,
         summer,
         autumn,
@@ -30,7 +33,7 @@ public class SeasonsSystemURP : MonoBehaviour
     private ParticleSystem[] summerParticles;
     private ParticleSystem[] autumnParticles;
     private ParticleSystem[] winterParticles;
-    
+
     [Header("Time setting")]
     public float minutesOfDay;
     public int springDays;
@@ -92,15 +95,16 @@ public class SeasonsSystemURP : MonoBehaviour
     private bool isAllMaterialsRecolored;
     UnitySliders unitySliders;
 
-    void Awake(){
+    void Awake() {
         unitySliders = this.GetComponent<UnitySliders>();
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
         m_minutesOfDay = minutesOfDay * 60;
         dayTimer = m_minutesOfDay;
-        
+
         season = initialSeason;
         onNewSeasonActions();
         if (changeGrassColor || changeGrassWindSpeed) { detailPrototypes = terrain.terrainData.detailPrototypes; }
@@ -123,6 +127,13 @@ public class SeasonsSystemURP : MonoBehaviour
         checkAndSetFogDensity();
         recolorMaterials();
         if (changeGrassColor) { recolorGrass(); }
+
+        time += Time.deltaTime;
+    }
+
+    public float[] GetTimes()
+    {
+        return times;
     }
 
     public void SetSeason(seasons season)
@@ -196,6 +207,8 @@ public class SeasonsSystemURP : MonoBehaviour
     private void checkSeason()
     {
         if(dayOfMonth > seasonDays[season]) { season = nextSeason(); onNewSeasonActions(); }
+        times[(int)season] += time;
+        time = 0;
     }
 
     private seasons nextSeason()
