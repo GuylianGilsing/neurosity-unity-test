@@ -19,6 +19,11 @@ public class EndScreenText : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI winterText;
 
+    private void OnEnable()
+    {
+        LoadText();
+    }
+
     public void LoadText()
     {
         float[] times = system.GetTimes();
