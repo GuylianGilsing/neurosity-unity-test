@@ -6,8 +6,8 @@ public class GuidingLight : MonoBehaviour
 {
     public Transform[] waypoints; // Array of waypoints
     public float speed = 5f; // Speed of the light
-    private int currentWaypointIndex = 0;
-    private bool shouldMoveToNextWaypoint = false;
+    private int currentWaypointIndex = 0; // Index of the current waypoint
+    private bool shouldMoveToNextWaypoint = false; // Flag to control movement
 
     void Start()
     {
@@ -40,6 +40,13 @@ public class GuidingLight : MonoBehaviour
             // Reached the waypoint, stop moving and wait for player to trigger next move
             transform.position = targetWaypoint.position; // Ensure exact positioning
             shouldMoveToNextWaypoint = false; // Wait for player to reach the next waypoint
+
+            // Destroy the guiding light if it reaches the third waypoint (index 2)
+            if (currentWaypointIndex == 2)
+            {
+                Destroy(gameObject);
+                return; // Exit the function to avoid further processing
+            }
         }
         else
         {
