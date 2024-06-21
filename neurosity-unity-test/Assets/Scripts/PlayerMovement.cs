@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 horizontalMovement = Vector3.zero;
     private Vector3 verticalMovement = Vector3.zero;
+    private Vector3 prevMovement = Vector3.zero;
 
     private float startAccelerationTimestamp = 0.0f;
     private float startDecelerationTimestamp = 0.0f;
@@ -16,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Camera camera;
     private CharacterController controller;
+    private Animator animator;
 
 
     public void OnMovementInput(InputAction.CallbackContext ctx)
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         this.camera = this.GetComponent<PlayerInput>().camera;
         this.controller = this.GetComponent<CharacterController>();
+        this.animator = this.GetComponent<Animator>();
 
         // Hide the mouse and keep it in the center of the window
         Cursor.visible = false;
@@ -51,8 +55,46 @@ public class PlayerMovement : MonoBehaviour
             this.horizontalMovement.z + this.verticalMovement.z
         );
 
+        Debug.Log($"x{movement.x} y{movement.y} z{movement.z}");
+
+        if (this.IsMovingHorizontally(movement))
+        {
+            if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName("walking"))
+            {
+                this.animator.SetTrigger("playWalking");
+            }
+        }
+        else
+        {
+            if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
+            {
+                this.animator.SetTrigger("playIdle");
+            }
+        }
+
+        this.prevMovement = movement;
+
         // Move player
         this.controller.Move(movement * Time.deltaTime);
+    }
+
+    private bool IsMovingHorizontally(Vector3 newMovement)
+    {
+        // Player is providing character input
+        if (this.movementInput != Vector2.zero)
+        {
+            return true;
+        }
+
+        // Character movement is happening
+        if (
+            this.prevMovement.x != newMovement.x ||
+            this.prevMovement.z != newMovement.z
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     private Vector3 GetHorizontalMovement(Vector3 existingMovement)
